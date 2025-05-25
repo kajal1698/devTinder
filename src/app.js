@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const {adminAuth} = require("../middlewares/auth")
 //now with this only home page will display but use app.get to match exact path then it will display matching route
 
 //this will match all the http method API calls to /test
@@ -98,6 +99,11 @@ app.use("/hello/2",(req,res)=>{
 // app.use("/",(req,res)=>{
 //     res.send("Hello From home page");
 // })
+
+app.use('/admin',adminAuth);
+app.get('/admin/getAllData',(req,res)=>{
+    res.send("All data sent by admin");
+})
 app.listen(5000,()=>{
     console.log("Server is listening on port 5000");
 })
