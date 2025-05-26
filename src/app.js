@@ -11,6 +11,20 @@ app.post("/signup",async (req,res)=>{
     await user.save(); 
     res.send("Data added to database successfully");
 })
+app.get("/user",async (req,res)=>{
+  const emailId = req.body.email
+  const users = await User.find({email:emailId});
+  if(users.length == 0){
+    res.status(404).send("User not found");
+  }else{
+    res.send(users);
+  }  
+})
+//get all the user from the database
+app.get("/feed",async (req,res)=>{
+  const users = await User.find({});  
+  res.send(users);
+})
 connectDb()
   .then(() => {
     console.log("Connection with db is successfull");
